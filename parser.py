@@ -1,6 +1,7 @@
 from display import *
 from matrix import *
 from draw import *
+import random
 
 """
 Goes through the file named filename and performs all of the actions listed in that file.
@@ -42,7 +43,7 @@ The file follows the following format:
 	 quit: end parsing
 See the file script for an example of the file format
 """
-ARG_COMMANDS = [ 'line', 'scale', 'move', 'rotate', 'save', 'circle', 'bezier', 'hermite', 'box', 'sphere', 'torus', 'clear' ]
+ARG_COMMANDS = [ 'line', 'scale', 'move', 'rotate', 'save', 'circle', 'bezier', 'hermite', 'box', 'sphere', 'torus' ]
 
 def parse_file( fname, edges, transform, screen, color ):
 
@@ -53,7 +54,7 @@ def parse_file( fname, edges, transform, screen, color ):
     c = 0
     while c < len(lines):
         line = lines[c].strip()
-        print ':' + line + ':'
+        #print ':' + line + ':'
 
         if line in ARG_COMMANDS:
             c+= 1
@@ -95,7 +96,6 @@ def parse_file( fname, edges, transform, screen, color ):
         elif line == 'clear':
 
             edges = []
-            c -= 1
             
         elif line == 'line':
             #print 'LINE\t' + str(args)
