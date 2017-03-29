@@ -30,43 +30,52 @@ def add_box( points, x, y, z, width, height, depth ):
 
 def add_sphere( points, cx, cy, cz, r, step ):
     m = generate_sphere(points, cx, cy, cz, r, step)
-    print_matrix(m)
-    print "ok"
     for p in m:
-        add_edge(points, p[0], p[1], p[2], p[0] + 1, p[1] + 1, p[2] + 1)
+        add_edge(points, p[0], p[1], p[2], p[0], p[1], p[2])
+        add_edge(points, p[0]+1, p[1]+1, p[2]+1, p[0]+1, p[1]+1, p[2]+1)
     pass
 
 def generate_sphere( points, cx, cy, cz, r, step ):
-    print "generate sphere"
     m = []
     s = 1 / step
-    phi = 0
-    while phi <= s:
-        theta = 0
-        while theta <= s:
+    a = 0
+    while a <= s:
+        phi = a / s
+        b = 0
+        while b <= s:
+            theta = b / s
             x = r * math.cos(math.pi * theta) + cx
-            y = r * math.sin(math.pi * theta) * math.cos(2 * math.pi * phi) + cy
-            z = r * math.sin(math.pi * theta) * math.sin(2 * math.pi * phi) + cz
+            y = r * math.sin(math.pi * theta) * math.cos(2*math.pi * phi) + cy
+            z = r * math.sin(math.pi * theta) * math.sin(2*math.pi * phi) + cz
             m.append([x, y, z])
-            theta += 1
-        phi += 1
+            b += 1
+        a += 1
     return m
     pass
 
 def add_torus( points, cx, cy, cz, r0, r1, step ):
-    n = 1 / step
-    i = 0
-    while i <= n:
-        t = 1 / n
-        i += 1
+    m = generate_torus(points, cx, cy, cz, r0, r1, step)
+    for p in m:
+        add_edge(points, p[0], p[1], p[2], p[0], p[1], p[2])
+        add_edge(points, p[0]+1, p[1]+1, p[2]+1, p[0]+1, p[1]+1, p[2]+1)
     pass
 
 def generate_torus( points, cx, cy, cz, r0, r1, step ):
-    n = 1 / step
-    i = 0
-    while i <= n:
-        t = 1 / n
-        i += 1
+    m = []
+    s = 1 / step
+    a = 0
+    while a <= s:
+        phi = a / s
+        b = 0
+        while b <= s:
+            theta = b / s
+            x = (r0 * math.cos(2*math.pi * theta) + r1) * math.cos(2*math.pi * phi) + cx
+            y = r0 * math.sin(2*math.pi * theta) + cy
+            z = -(r0 * math.cos(2*math.pi * theta) + r1) * math.sin(2*math.pi * phi) + cz
+            m.append([x, y, z])
+            b += 1
+        a += 1
+    return m
     pass
 
 def add_circle( points, cx, cy, cz, r, step ):
