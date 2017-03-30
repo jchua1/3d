@@ -1,7 +1,6 @@
 from display import *
 from matrix import *
 from math import *
-import random
 
 def add_box( points, x, y, z, width, height, depth ):
     add_edge(points, x, y, z, x, y, z)
@@ -119,9 +118,7 @@ def draw_lines( matrix, screen, color ):
                    int(matrix[point][1]),
                    int(matrix[point+1][0]),
                    int(matrix[point+1][1]),
-                   screen, [random.randrange(0, 250),
-                            random.randrange(0, 250),
-                            random.randrange(0, 250)])    
+                   screen, color)    
         point+= 2
         
 def add_edge( matrix, x0, y0, z0, x1, y1, z1 ):
